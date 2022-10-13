@@ -8,27 +8,10 @@ from .constants import K_W_CURB_ENGLISH as K_W_CURB
 from .constants import G_ENGLISH as G
 
 
-class Node(object):
-
-    def __init__(self, gutter):
-        self.gutter = gutter
-
-    def efficiency(self):
-        return 0
-
-    def intercepted(self, flow):
-        eff = self.efficiency(flow)
-        return eff*flow
-
-    def bypass(self, flow):
-        inter = self.intercepted(flow)
-        return flow - inter
-
-
-class Inlet(Node):
+class Inlet(object):
 
     def __init__(self, gutter, width):
-        super().__init__(gutter)
+        self.gutter = gutter
         self.width = width
 
     def frontal_ratio(self, flow):
@@ -42,6 +25,14 @@ class Inlet(Node):
 
     def efficiency(self, flow):
         return 0.0
+
+    def intercepted(self, flow):
+        eff = self.efficiency(flow)
+        return eff*flow
+
+    def bypass(self, flow):
+        inter = self.intercepted(flow)
+        return flow - inter
 
     def capacity(self, flow):
         return flow * self.efficiency(flow)

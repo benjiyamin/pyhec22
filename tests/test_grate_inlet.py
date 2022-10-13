@@ -2,7 +2,7 @@
 import unittest
 
 from pyhec22.gutters import Gutter
-from pyhec22.nodes import GrateInlet
+from pyhec22.inlets import GrateInlet
 
 
 class GrateInletTest(unittest.TestCase):
