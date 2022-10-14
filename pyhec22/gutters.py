@@ -3,16 +3,18 @@
 from scipy import optimize
 
 from .constants import K_U_ENGLISH as K_U
+from .inlets import GrateInlet, CurbInlet
 
 
 class Gutter(object):
 
-    def __init__(self, camber, n, slope, depth=0.0, width=0.0):
+    def __init__(self, camber, n, slope, depth=0.0, width=0.0, inlet=None):
         self.camber = camber
         self.n = n
         self.slope = slope
         self.depth = depth
         self.width = width
+        self.inlet = inlet
 
     @property
     def depression_camber(self):
@@ -101,3 +103,13 @@ class Gutter(object):
     def velocity(self, flow):
         area = self.area_from_flow(flow)
         return flow / area
+
+    def create_curb_inlet(self, width, depth=0.0, length=0.0):
+        inlet = CurbInlet(self, width, depth, length)
+        self.inlet = inlet
+        return inlet
+
+    def create_grate_inlet(self, gutter, width, length, grate=None):
+        inlet = GrateInlet(self, gutter, width, length, grate)
+        self.inlet = inlet
+        return inlet
