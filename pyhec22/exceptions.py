@@ -1,0 +1,3 @@
+
+class NotConfluent(Exception):
+    pass
